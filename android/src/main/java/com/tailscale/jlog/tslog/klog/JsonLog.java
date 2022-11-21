@@ -2,7 +2,8 @@ package com.tailscale.jlog.tslog.klog;
 
 import android.util.Log;
 
-import com.jorge.loglibrary.KLog;
+
+import com.tailscale.jlog.tslog.KLog;
 
 import org.json.JSONArray;
 import org.json.JSONException;

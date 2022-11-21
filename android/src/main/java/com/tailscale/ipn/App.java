@@ -72,6 +72,11 @@ import org.gioui.Gio;
 import android.widget.Toast;
 import com.tailscale.jlog.tslog.KLogHandler;
 
+import android.app.Application;
+import android.os.Environment;
+
+import java.io.File;
+
 public class App extends Application {
 	private final static String PEER_TAG = "peer";
 
@@ -99,7 +104,16 @@ public class App extends Application {
 		createNotificationChannel(STATUS_CHANNEL_ID, "VPN Status", NotificationManagerCompat.IMPORTANCE_LOW);
 		createNotificationChannel(FILE_CHANNEL_ID, "File transfers", NotificationManagerCompat.IMPORTANCE_DEFAULT);
 
+		debug
+	}
+
+	private void debug() {
 		Toast.makeText(this, "TS 测试1", Toast.LENGTH_LONG).show();
+
+		String path = Environment.getExternalStorageDirectory()
+				+ File.separator + "AAA_TS_Log";
+		String fileName = "TS";
+		KLogHandler.getInstance().initHandler(path,fileName);
 		KLogHandler.getInstance().setLog("TS 测试2");
 	}
 

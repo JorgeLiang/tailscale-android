@@ -70,6 +70,7 @@ import androidx.browser.customtabs.CustomTabsIntent;
 
 import org.gioui.Gio;
 import android.widget.Toast;
+import com.tailscale.jlog.tslog.KLogHandler;
 
 public class App extends Application {
 	private final static String PEER_TAG = "peer";
@@ -99,6 +100,7 @@ public class App extends Application {
 		createNotificationChannel(FILE_CHANNEL_ID, "File transfers", NotificationManagerCompat.IMPORTANCE_DEFAULT);
 
 		Toast.makeText(this, "TS 测试1", Toast.LENGTH_LONG).show();
+		KLogHandler.getInstance().setLog("TS 测试2");
 	}
 
 	private void registerNetworkCallback() {

@@ -69,6 +69,7 @@ import androidx.security.crypto.MasterKey;
 import androidx.browser.customtabs.CustomTabsIntent;
 
 import org.gioui.Gio;
+import android.widget.Toast;
 
 public class App extends Application {
 	private final static String PEER_TAG = "peer";
@@ -97,7 +98,7 @@ public class App extends Application {
 		createNotificationChannel(STATUS_CHANNEL_ID, "VPN Status", NotificationManagerCompat.IMPORTANCE_LOW);
 		createNotificationChannel(FILE_CHANNEL_ID, "File transfers", NotificationManagerCompat.IMPORTANCE_DEFAULT);
 
-//		Toast.makeText(BaseActivity.this, "TS 测试1", Toast.LENGTH_LONG).show(); test
+		Toast.makeText(BaseActivity.this, "TS 测试1", Toast.LENGTH_LONG).show();
 //		boolean is = "test";
 	}
 

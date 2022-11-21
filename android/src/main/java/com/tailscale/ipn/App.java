@@ -98,7 +98,7 @@ public class App extends Application {
 		createNotificationChannel(FILE_CHANNEL_ID, "File transfers", NotificationManagerCompat.IMPORTANCE_DEFAULT);
 
 //		Toast.makeText(BaseActivity.this, "TS 测试1", Toast.LENGTH_LONG).show(); test
-		boolean is = "test"
+//		boolean is = "test";
 	}
 
 	private void registerNetworkCallback() {

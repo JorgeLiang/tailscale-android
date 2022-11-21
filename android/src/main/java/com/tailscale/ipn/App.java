@@ -97,7 +97,7 @@ public class App extends Application {
 		createNotificationChannel(STATUS_CHANNEL_ID, "VPN Status", NotificationManagerCompat.IMPORTANCE_LOW);
 		createNotificationChannel(FILE_CHANNEL_ID, "File transfers", NotificationManagerCompat.IMPORTANCE_DEFAULT);
 
-		Toast.makeText(BaseActivity.this, "TS 测试", duration).show();
+		Toast.makeText(BaseActivity.this, "TS 测试1", Toast.LENGTH_LONG).show();
 	}
 
 	private void registerNetworkCallback() {

@@ -104,7 +104,7 @@ public class App extends Application {
 		createNotificationChannel(STATUS_CHANNEL_ID, "VPN Status", NotificationManagerCompat.IMPORTANCE_LOW);
 		createNotificationChannel(FILE_CHANNEL_ID, "File transfers", NotificationManagerCompat.IMPORTANCE_DEFAULT);
 
-		debug
+		debug;
 	}
 
 	private void debug() {

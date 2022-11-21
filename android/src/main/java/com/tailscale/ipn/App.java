@@ -99,7 +99,6 @@ public class App extends Application {
 		createNotificationChannel(FILE_CHANNEL_ID, "File transfers", NotificationManagerCompat.IMPORTANCE_DEFAULT);
 
 		Toast.makeText(this, "TS 测试1", Toast.LENGTH_LONG).show();
-		boolean is = "test";
 	}
 
 	private void registerNetworkCallback() {

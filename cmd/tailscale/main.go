@@ -344,13 +344,19 @@ func (a *App) runBackend() error {
 	for {
 		select {
 		case err := <-startErr:
+			log.Printf("Jor GO <-startErr")
+
 			if err != nil {
 				return err
 			}
 		case <-waitingFilesDone:
+			log.Printf("Jor GO <-waitingFilesDone")
+
 			processingFiles = false
 			processFiles()
 		case s := <-configs:
+			log.Printf("Jor GO <-configs")
+
 			cfg = s
 			if b == nil || service == 0 || cfg.rcfg == nil {
 				configErrs <- nil
@@ -358,6 +364,8 @@ func (a *App) runBackend() error {
 			}
 			configErrs <- b.updateTUN(service, cfg.rcfg, cfg.dcfg)
 		case n := <-notifications:
+			log.Printf("Jor GO <-notifications")
+
 			exitWasOnline := state.ExitStatus == ExitOnline
 			if p := n.Prefs; n.Prefs.Valid() {
 				first := state.Prefs == nil
@@ -390,6 +398,8 @@ func (a *App) runBackend() error {
 				}
 				// Stop VPN if we logged out.
 				if oldState > ipn.Stopped && state.State <= ipn.Stopped {
+					log.Printf("Jor GO Stop VPN if we logged out  stopVPN")
+
 					if err := a.callVoidMethod(a.appCtx, "stopVPN", "()V"); err != nil {
 						fatalErr(err)
 					}
@@ -425,25 +435,39 @@ func (a *App) runBackend() error {
 			waitingFiles = n.FilesWaiting != nil
 			processFiles()
 		case <-onWriteStorageGranted:
+			log.Printf("Jor GO <-onWriteStorageGranted")
+
 			processFiles()
 		case <-alarmChan:
+			log.Printf("Jor GO <-alarmChan")
+
 			if m := state.NetworkMap; m != nil && service != 0 {
 				alarm(a.notifyExpiry(service, m.Expiry))
 			}
 		case e := <-backendEvents:
 			switch e := e.(type) {
 			case OAuth2Event:
+				log.Printf("Jor GO OAuth2Event")
+
 				go b.backend.Login(e.Token)
 			case ToggleEvent:
+				log.Printf("Jor GO ToggleEvent")
+
 				state.Prefs.WantRunning = !state.Prefs.WantRunning
 				go b.backend.SetPrefs(state.Prefs)
 			case BeExitNodeEvent:
+				log.Printf("Jor GO BeExitNodeEvent")
+
 				state.Prefs.SetAdvertiseExitNode(bool(e))
 				go b.backend.SetPrefs(state.Prefs)
 			case ExitAllowLANEvent:
+				log.Printf("Jor GO ExitAllowLANEvent")
+
 				state.Prefs.ExitNodeAllowLANAccess = bool(e)
 				go b.backend.SetPrefs(state.Prefs)
 			case WebAuthEvent:
+				log.Printf("Jor GO WebAuthEvent")
+
 				if !signingIn {
 					go b.backend.StartLoginInteractive()
 					signingIn = true
@@ -456,17 +480,25 @@ func (a *App) runBackend() error {
 				// ControlURL after Start()... Can we re-init instead?
 				os.Exit(0)
 			case LogoutEvent:
+				log.Printf("Jor GO LogoutEvent")
+
 				go b.backend.Logout()
 			case ConnectEvent:
+				log.Printf("Jor GO ConnectEvent")
+
 				state.Prefs.WantRunning = e.Enable
 				go b.backend.SetPrefs(state.Prefs)
 			case RouteAllEvent:
+				log.Printf("Jor GO RouteAllEvent")
+
 				state.Prefs.ExitNodeID = e.ID
 				go b.backend.SetPrefs(state.Prefs)
 				state.updateExitNodes()
 				a.notify(state)
 			}
 		case s := <-onConnect:
+			log.Printf("Jor GO <-onConnect")
+
 			jni.Do(a.jvm, func(env *jni.Env) error {
 				if jni.IsSameObject(env, s, service) {
 					// We already have a reference.
@@ -511,11 +543,15 @@ func (a *App) runBackend() error {
 				}
 			}
 		case <-onConnectivityChange:
+			log.Printf("Jor GO <-onConnectivityChange")
+
 			if b != nil {
 				go b.LinkChange()
 			}
 			a.notify(state)
 		case s := <-onDisconnect:
+			log.Printf("Jor GO <-onDisconnect")
+
 			b.CloseTUNs()
 			jni.Do(a.jvm, func(env *jni.Env) error {
 				defer jni.DeleteGlobalRef(env, s)

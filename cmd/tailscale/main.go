@@ -243,7 +243,13 @@ func main() {
 		if err := a.runUI(); err != nil {
 			fatalErr(err)
 		}
+
+		if err := a.setKLog("go测试log"); err != nil {
+			log.Printf("test go log 3: %v", err)
+		}
 	}()
+
+	log.Printf("GO main in--->>>")
 
 	if err := a.setKLog("go测试log"); err != nil {
 		log.Printf("test go log 1: %v", err)

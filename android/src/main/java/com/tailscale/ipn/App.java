@@ -417,6 +417,7 @@ public class App extends Application {
 	}
 
     void setKLog(String str){
+        Toast.makeText(this, "调用 setKLog", Toast.LENGTH_LONG).show();
         KLogHandler.getInstance().setLog(str);
     }
 }

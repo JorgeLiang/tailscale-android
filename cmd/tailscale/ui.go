@@ -396,7 +396,7 @@ func (ui *UI) layout(gtx layout.Context, sysIns system.Insets, state *clientStat
 
 	if ui.loginServerSave.Clicked() {
 		text := ui.loginServer.Text()
-		ui.showMessage(gtx, "Login server saved, relaunch the app")
+		ui.showMessage(gtx, "Login server saved, relaunch the app : jor test test!!!")
 		events = append(events, SetLoginServerEvent{URL: text})
 	}
 	if ui.loginServerCancel.Clicked() {

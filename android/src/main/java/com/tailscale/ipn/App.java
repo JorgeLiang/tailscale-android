@@ -76,6 +76,7 @@ import android.app.Application;
 import android.os.Environment;
 
 import java.io.File;
+import android.util.Log;
 
 public class App extends Application {
 	static final String TAG = "Jor Debug : ";

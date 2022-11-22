@@ -243,10 +243,6 @@ func main() {
 		if err := a.runUI(); err != nil {
 			fatalErr(err)
 		}
-
-		if err := a.setKLog("go测试log"); err != nil {
-			log.Printf("test go log 3: %v", err)
-		}
 	}()
 
 	log.Printf("Jor GO main in--->>>")
@@ -453,6 +449,7 @@ func (a *App) runBackend() error {
 					signingIn = true
 				}
 			case SetLoginServerEvent:
+				log.Printf("Jor GO SetLoginServerEvent 1 e.URL --->>>" + e.URL)
 				state.Prefs.ControlURL = e.URL
 				b.backend.SetPrefs(state.Prefs)
 				// A hack to get around ipnlocal's inability to update
@@ -1143,6 +1140,7 @@ func (a *App) processUIEvents(w *app.Window, events []UIEvent, act jni.Object, s
 			a.store.WriteString(loginMethodPrefKey, loginMethodWeb)
 			requestBackend(e)
 		case SetLoginServerEvent:
+			log.Printf("Jor GO SetLoginServerEvent 2 e.URL --->>>" + e.URL)
 			a.store.WriteString(customLoginServerPrefKey, e.URL)
 			requestBackend(e)
 		case LogoutEvent:

@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"golang.org/x/tools/go/ssa/interp/testdata/src/log"
 	"image"
 	"image/color"
 	"net/netip"
@@ -397,6 +398,7 @@ func (ui *UI) layout(gtx layout.Context, sysIns system.Insets, state *clientStat
 	if ui.loginServerSave.Clicked() {
 		text := ui.loginServer.Text()
 		ui.showMessage(gtx, "Login server saved, relaunch the app : jor test test!!!")
+		log.Printf("Jor GO ui.loginServerSave.Clicked() URL : " + text)
 		events = append(events, SetLoginServerEvent{URL: text})
 	}
 	if ui.loginServerCancel.Clicked() {

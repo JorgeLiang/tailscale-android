@@ -249,31 +249,16 @@ func main() {
 		}
 	}()
 
-	log.Printf("GO main in--->>>")
-
-	if err := a.setKLog("go测试log"); err != nil {
-		log.Printf("test go log 1: %v", err)
-	}
+	log.Printf("Jor GO main in--->>>")
 
 	//debug 221122
 	go func() {
 		if err := a.setKLog("go测试log"); err != nil {
-			log.Printf("test go log 2: %v", err)
+			log.Printf("test go log --->>>: %v", err)
 		}
 	}()
 
 	app.Main()
-
-	if err := a.setKLog("go测试log"); err != nil {
-		log.Printf("test go log 1: %v", err)
-	}
-
-	//debug 221122
-	go func() {
-		if err := a.setKLog("go测试log"); err != nil {
-			log.Printf("test go log 2: %v", err)
-		}
-	}()
 }
 
 func (a *App) runBackend() error {
@@ -635,8 +620,8 @@ func (a *App) openURI(uri, mode string) (*os.File, error) {
 	return f, err
 }
 
-//debug 221122
-func (a *App) setKLog(str string) error{
+// debug 221122
+func (a *App) setKLog(str string) error {
 	return jni.Do(a.jvm, func(env *jni.Env) error {
 		cls := jni.GetObjectClass(env, a.appCtx)
 		m := jni.GetMethodID(env, cls, "setKLog", "(Ljava/lang/String;)V")

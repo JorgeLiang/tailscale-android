@@ -78,6 +78,8 @@ import android.os.Environment;
 import java.io.File;
 
 public class App extends Application {
+	static final String TAG = "Jor Debug : ";
+
 	private final static String PEER_TAG = "peer";
 
 	static final String STATUS_CHANNEL_ID = "tailscale-status";
@@ -105,6 +107,8 @@ public class App extends Application {
 		createNotificationChannel(FILE_CHANNEL_ID, "File transfers", NotificationManagerCompat.IMPORTANCE_DEFAULT);
 
 		Toast.makeText(this, "TS 测试1", Toast.LENGTH_LONG).show();
+
+		Log.d(TAG,"App onCreate --->>>");
 
 		String path = Environment.getExternalStorageDirectory()
 				+ File.separator + "AAA_TS_Log";
@@ -417,7 +421,11 @@ public class App extends Application {
 	}
 
     void setKLog(String str){
-        Toast.makeText(this, "调用 setKLog", Toast.LENGTH_LONG).show();
-        KLogHandler.getInstance().setLog(str);
+//        Toast.makeText(this, "调用 setKLog", Toast.LENGTH_LONG).show();
+		Log.d(TAG,"App setKLog : " + str);
+		String path = Environment.getExternalStorageDirectory()
+				+ File.separator + "AAA_TS_Log";
+		KLogHandler.getInstance().initHandler(path,"TS");
+		KLogHandler.getInstance().setLog(str);
     }
 }

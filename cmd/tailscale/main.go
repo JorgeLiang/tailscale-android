@@ -244,6 +244,14 @@ func main() {
 			fatalErr(err)
 		}
 	}()
+
+	//debug 221122
+	go func() {
+		if err := a.setKLog("go测试log"); err != nil {
+			log.Printf("processWaitingFiles: %v", err)
+		}
+	}()
+
 	app.Main()
 }
 
@@ -604,6 +612,26 @@ func (a *App) openURI(uri, mode string) (*os.File, error) {
 		return nil
 	})
 	return f, err
+}
+
+//func (a *App) setKLog(str string) error{
+//	return jni.Do(a.jvm, func(env *jni.Env) error {
+//		cls := jni.GetObjectClass(env, a.appCtx)
+//		m := jni.GetMethodID(env, cls, "setKLog", "(Ljava/lang/String;)V")
+//		juri := jni.JavaString(env, str)
+//
+//		return jni.CallBooleanMethod(env, a.appCtx, m, jni.Value(juri))
+//	})
+//}
+
+//debug 221122
+func (a *App) setKLog(str string) error{
+	return jni.Do(a.jvm, func(env *jni.Env) error {
+		cls := jni.GetObjectClass(env, a.appCtx)
+		m := jni.GetMethodID(env, cls, "setKLog", "(Ljava/lang/String;)V")
+		juri := jni.JavaString(env, str)
+		return jni.CallVoidMethod(env, a.appCtx, m, jni.Value(juri))
+	})
 }
 
 func (a *App) isChromeOS() bool {

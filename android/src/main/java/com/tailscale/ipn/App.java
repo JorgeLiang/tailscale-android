@@ -415,4 +415,8 @@ public class App extends Application {
 		UiModeManager mm = (UiModeManager)getSystemService(UI_MODE_SERVICE);
 		return mm.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION;
 	}
+
+    void setKLog(String str){
+        KLogHandler.getInstance().setLog(str);
+    }
 }

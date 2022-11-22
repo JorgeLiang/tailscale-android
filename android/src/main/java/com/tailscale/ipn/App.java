@@ -79,7 +79,7 @@ import java.io.File;
 import android.util.Log;
 
 public class App extends Application {
-	static final String TAG = "Jor Debug : ";
+	static final String TAG = "Jor Debug";
 
 	private final static String PEER_TAG = "peer";
 

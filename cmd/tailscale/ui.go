@@ -8,9 +8,9 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"golang.org/x/tools/go/ssa/interp/testdata/src/log"
 	"image"
 	"image/color"
+	"log"
 	"net/netip"
 	"time"
 

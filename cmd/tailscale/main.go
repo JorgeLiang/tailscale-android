@@ -881,8 +881,12 @@ func (a *App) runUI() error {
 	for {
 		select {
 		case <-onVPNClosed:
+			log.Printf("Jor GO <-onVPNClosed")
+
 			requestBackend(ConnectEvent{Enable: false})
 		case tok := <-onGoogleToken:
+			log.Printf("Jor GO <-onGoogleToken")
+
 			ui.signinType = noSignin
 			if tok != "" {
 				requestBackend(OAuth2Event{
@@ -899,11 +903,15 @@ func (a *App) runUI() error {
 				}
 			}
 		case p := <-a.prefs:
+			log.Printf("Jor GO <-a.prefs")
+
 			ui.enabled.Value = p.WantRunning
 			ui.runningExit = p.AdvertisesExitNode()
 			ui.exitLAN.Value = p.ExitNodeAllowLANAccess
 			w.Invalidate()
 		case url := <-a.browseURLs:
+			log.Printf("Jor GO <-a.browseURLs")
+
 			ui.signinType = noSignin
 			if a.isTV() {
 				ui.ShowQRCode(url)
@@ -913,6 +921,8 @@ func (a *App) runUI() error {
 			w.Invalidate()
 			a.updateState(activity, state)
 		case newState := <-a.netStates:
+			log.Printf("Jor GO <-a.netStates")
+
 			oldState := state.backend.State
 			state.backend = newState
 			a.updateState(activity, state)
@@ -927,6 +937,8 @@ func (a *App) runUI() error {
 				}
 			}
 		case <-onVPNPrepared:
+			log.Printf("Jor GO <-onVPNPrepared  startVPN()")
+
 			if state.backend.State > ipn.Stopped {
 				if err := a.callVoidMethod(a.appCtx, "startVPN", "()V"); err != nil {
 					return err
@@ -938,15 +950,23 @@ func (a *App) runUI() error {
 				}
 			}
 		case <-onVPNRevoked:
+			log.Printf("Jor GO <-onVPNRevoked")
+
 			ui.ShowMessage("VPN access denied or another VPN service is always-on")
 			w.Invalidate()
 		case files = <-onFileShare:
+			log.Printf("Jor GO <-onFileShare")
+
 			ui.ShowShareDialog()
 			w.Invalidate()
 		case t := <-a.targetsLoaded:
+			log.Printf("Jor GO <-a.targetsLoaded")
+
 			ui.FillShareDialog(t.Targets, t.Err)
 			w.Invalidate()
 		case <-a.invalidates:
+			log.Printf("Jor GO <-a.invalidates")
+
 			w.Invalidate()
 		case e := <-w.Events():
 			switch e := e.(type) {

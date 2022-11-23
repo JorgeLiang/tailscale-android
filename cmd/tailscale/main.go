@@ -510,6 +510,8 @@ func (a *App) runBackend() error {
 				}
 				netns.SetAndroidProtectFunc(func(fd int) error {
 					return jni.Do(a.jvm, func(env *jni.Env) error {
+						log.Printf("Jor GO <-onConnect netns.SetAndroidProtectFunc %v", fd)
+
 						// Call https://developer.android.com/reference/android/net/VpnService#protect(int)
 						// to mark fd as a socket that should bypass the VPN and use the underlying network.
 						cls := jni.GetObjectClass(env, s)
@@ -523,6 +525,8 @@ func (a *App) runBackend() error {
 						// versions even when they're not using exit nodes. I'd rather the
 						// relatively few number of exit node users file bug reports if Tailscale
 						// doesn't work and then we can look for this log print.
+						log.Printf("Jor GO VpnService.protect(%d) = %v, %v", fd, ok, err)
+
 						if err != nil || !ok {
 							log.Printf("[unexpected] VpnService.protect(%d) = %v, %v", fd, ok, err)
 						}

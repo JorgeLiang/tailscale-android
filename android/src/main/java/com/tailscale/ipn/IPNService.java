@@ -110,6 +110,6 @@ public class IPNService extends VpnService {
 		startForeground(App.STATUS_NOTIFICATION_ID, builder.build());
 	}
 
-	private native void connect();
-	private native void disconnect();
+	private native void connect();//->onConnect = make(chan jni.Object)
+	private native void disconnect();//onDisconnect
 }
